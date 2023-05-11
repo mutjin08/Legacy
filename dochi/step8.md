@@ -28,3 +28,8 @@ path('question/create/', views.question_create, name='question_create')
 ## GET과 POST
 ### /workspace/mysite/templates/base.html
 ### /workspace/mysite/pybo/views.py
+
+# 오류 표시하기
+### /workspace/mysite/templates/pybo/question_detail.html
+from: <!-- 오류표시 start>
+to: <!-- 오류표시 end>
