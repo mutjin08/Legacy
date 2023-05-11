@@ -1,5 +1,5 @@
 # 초기 설정
-mysite/mysite -> mysite/config
+/workspace/mysite/mysite -> /workspace/mysite/config
 (settings.py, urls.py, wsgi.py. manage.py)
 
 # terminal
@@ -9,7 +9,7 @@ python manage.py runserver 0:80
 
 django-admin startapp pybo
 
-# mysite/pybo/models.py에 모델 작성하기
+# /workspace/mysite/pybo/models.py에 모델 작성하기
 
 ### TABLE
 subject
@@ -41,7 +41,7 @@ python manage.py makemigrations
 python manage.py migrate
 
 //새로운 model이 생성되면 makemigrations->migrate
-//makemigrations 하면 '/mysite/pybo/migrations/__pycache__/0001_initial.cpython-37.pyc' 생성된다
+//makemigrations 하면 '/workspace/mysite/pybo/migrations/__pycache__/0001_initial.cpython-37.pyc' 생성된다
 
 python manage.py sqlmigrate pybo 0001
 //실행되는 query문을 terminal에서 볼 수 있다

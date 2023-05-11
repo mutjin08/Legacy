@@ -18,8 +18,8 @@ https://mysite-qcyjp.run.goorm.site/admin/
 생성한 관리자 계정으로 로그인한다
 
 ### 모델 등록
-/mysite/pybo/admin.py
-/mysite/pybo/models.py
+/workspace/mysite/pybo/admin.py
+/workspace/mysite/pybo/models.py
 admin.py 파일에 models.py 에서 생성한 모델을 등록한다
 
 """
@@ -32,8 +32,8 @@ admin.site.register(Question)
 //이제 Question 객체를 관리자 화면에서 신규로 생성할 수 있다.
 
 ### 모델 검색
-/mysite/pybo/admin.py
-/mysite/pybo/models.py
+/workspace/mysite/pybo/admin.py
+/workspace/mysite/pybo/models.py
 admin.py 파일에 models.py 에서 생성한 모델 객체를 검색할 수 있는 기능을 추가한다
 
 """
