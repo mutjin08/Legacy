@@ -25,3 +25,15 @@ def answer_create(request, question_id):
 redirect 함수는 페이지 이동을 위한 함수이다. 
 pybo:detail 별칭에 해당하는 페이지로 이동하기 위해 redirect 함수를 사용했다. 
 그리고 pybo:detail별칭에 해당하는 URL 은 question_id 가 필요하므로 question.id를 인수로 전달했다.
+
+## 답변 조회
+### /workspace/mysite/templates/pybo/question_detail.html
+
+<h5>{{question.answer_set.count}}개의 답변이 있습니다</h5>
+<div>
+    <ul>
+        {% for answer in question.answer_set.all %}
+            <li>{{answer.content}}</li>
+        {% endfor %}
+    </ul>
+</div>
