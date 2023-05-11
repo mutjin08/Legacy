@@ -62,18 +62,8 @@ DIRS에 설정한 디렉터리 외에도 앱 디렉터리 바로 하위에 있�
 앱 (App) 디렉터리 하위에 템플릿 디렉터리를 두는 방법을 권장하지 않는다. 왜냐하면 하나의 웹 사이트에서 여러 앱을 사용할 때 여러 앱의 화면을 구성하는 템플릿은 한 디렉터리에 모아관리하는 편이 여러모로 좋기 때문이다.
 
 ## 템플릿 태그
+
 ### /workspace/mysite/templates/pybo/question_list.html
-"""
-{% if question_list %}
-    <ul>
-    {% for question in question_list %}
-        <li><a href="/pybo/{{ question.id }}/">{{ question.subject }}</a></li>
-    {% endfor %}
-    </ul>
-{% else %}
-    <p>질문이 없습니다.</p>
-{% endif %}
-"""
 
 ### 분기
 ### 반복
