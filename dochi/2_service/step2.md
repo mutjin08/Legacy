@@ -23,3 +23,8 @@ index(request) 수정하기
 
 ## 템플릿에 페이징 적용하기
 ### /workspace/mysite/templates/pybo/question_list.html
+질문 목록 템플릿에 전달된 페이징 객체는 question_list 이다.
+
+## 이동할 수 있는 모든 페이지를 표시하면 안된다
+### /workspace/mysite/templates/pybo/question_list.html
+이부분은 구현에 실패함

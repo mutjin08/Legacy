@@ -15,7 +15,12 @@
             
         <tr>
             <td>{{ forloop.counter }}</td>
-            <td><a href="{% url 'pybo:detail' question.id %}">{{ question.subject }}</a></td>
+            <td>
+                <a href="{% url 'pybo:detail' question.id %}">{{ question.subject }}</a>
+                {% if question.answer_set.count > 0 %}
+                <span>{{ question.answer_set.count }}</span>
+                {% endif %}
+            </td>
             <td>{{ question.create_date }}</td>
         </tr>
             
@@ -59,10 +64,11 @@
         {% else %}
         <li><a href="#">다음</a></li>
         {% endif %}
-
-        <!--다음페이지 end-->
+        <!--다음페이지 end--> 
     </ul>
     <!--페이징처리 end-->
+    
+    
     <a href="{% url 'pybo:question_create' %}">질문 등록하기</a>
 </div>
 {% endblock %}
