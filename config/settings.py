@@ -31,6 +31,7 @@ ALLOWED_HOSTS = [".run.goorm.io"]
 # Application definition
 
 INSTALLED_APPS = [
+    'common.apps.CommonConfig',
     'pybo.apps.PyboConfig',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -122,3 +123,5 @@ STATIC_URL = 'static/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static'),
 ]
+
+LOGIN_REDIRECT_URL = '/'
