@@ -31,6 +31,38 @@
         
     </table>
     
+    <!--페이징처리 start-->
+    <ul>
+        <!--이전페이지 start-->
+        {% if question_list.has_previous %}
+        <li><a href="?page{{question_list.previous_page_number}}">이전</a></li>
+        {% else %}
+        <li><a href="#">이전</a></li>
+        {% endif %}
+        <!--이전페이지 end-->
+        
+        
+        <!--페이지리스트 start-->
+        {% for page_number in question_list.paginator.page_range %}
+        {% if page_number == question_list.number %}
+        <li><a href="?page={{ page_number }}">{{page_number}}</a></li>
+        {% else %}
+        <li><a href="?page={{ page_number }}">{{page_number}}</a></li>
+        {% endif %}
+        {% endfor %}
+        <!--페이지리스트 end-->
+        
+        
+        <!--다음페이지 start-->
+        {% if question_list.has_next %}
+        <li><a href="?page={{ question_list.next_page_number}}">다음</a></li>
+        {% else %}
+        <li><a href="#">다음</a></li>
+        {% endif %}
+
+        <!--다음페이지 end-->
+    </ul>
+    <!--페이징처리 end-->
     <a href="{% url 'pybo:question_create' %}">질문 등록하기</a>
 </div>
 {% endblock %}
