@@ -1,10 +1,17 @@
+{% load static %}
+
 <!doctype html>
 <html lang="ko">
 <head>
     <title>Hello, pybo!</title>
 </head>
 <body>
+    
+{% include "navbar.html" %}
+    
+<!-- 기본템플릿 start-->
 {% block content %}
 {% endblock %}
+<!-- 기본템플릿 end-->
 </body>
 </html>
