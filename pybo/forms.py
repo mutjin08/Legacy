@@ -5,9 +5,20 @@ from pybo.models import Question, Answer
 class QuestionForm(forms.ModelForm):
     class Meta:
         model = Question
-        fields = ['subject', 'content']
+        fields = ['subject', 'content', 'location', 'audio', 'image']
+        labels = {
+            'subject': '제목',
+            'content': '내용',
+            'location': '장소',
+            'audio': '오디오 파일',
+            'image': '이미지 파일',
+        }
+
 
 class AnswerForm(forms.ModelForm):
     class Meta:
         model = Answer
         fields = ['content']
+        labels = {
+            'content': '답변내용',
+        }
