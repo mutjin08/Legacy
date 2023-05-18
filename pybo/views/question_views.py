@@ -6,6 +6,11 @@ from django.utils import timezone
 from pybo.forms import QuestionForm
 from pybo.models import Question
 
+#rest_framework 관련 코드
+# from rest_framework.response import Response
+# from rest_framework.views import APIView
+# from .serializers import QuestionSerializer
+
 
 @login_required(login_url='common:login')
 def question_create(request):
@@ -21,6 +26,7 @@ def question_create(request):
         form = QuestionForm()
     context = {'form': form}
     return render(request, 'pybo/question_form.html', context)
+
 
 
 @login_required(login_url='common:login')
@@ -60,3 +66,11 @@ def question_vote(request, question_id):
     else:
         question.voter.add(request.user)
     return redirect('pybo:detail', question_id=question.id)
+
+# # rest_framework 관련 코드 - Class Based View 중 APIView 사용
+# class QuestionListAPI(APIView):
+#     def get(self, request):
+#         queryset = Question.objects.all()
+#         print(queryset)
+#         serializer = QuestionSerializer(queryset, many=True)
+#         return Response(serializer.data)

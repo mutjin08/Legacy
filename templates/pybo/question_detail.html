@@ -29,15 +29,18 @@
                     <div class="mb-2">{{ question.author.username }}</div>
                     <div>{{ question.create_date }}</div>
                     <div>{{ question.location }}</div>
-                    {% if question.output %}
-                    <div>{{ question.output }}</div>
+                    {% if question.output %} <!--비디오-->
+                    <div>
+                        <video width="100%" height="100%" max-width=-webkit-fill-available max-width=fill-available
+                               src="{{ question.output.url }}" controls autoplay muted playsinline loop></video>
+                    </div>
                     {% endif %}
-                    {% if question.image %}
+                    {% if question.image %}  <!--이미지-->
                     <div>
                         <img src="{{ question.image.url }}" alt="{{ question.image.description }}" class="img-fluid mb-2">
                     </div>
                     {% endif %}
-                    {% if question.audio %}
+                    {% if question.audio %}  <!--음성 녹음-->
                     <div>
                         <audio controls>
                             <source src="{{ question.audio.url }}" type="{{ question.audio.content_type }}">
