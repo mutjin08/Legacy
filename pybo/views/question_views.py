@@ -6,6 +6,8 @@ from django.utils import timezone
 from pybo.forms import QuestionForm
 from pybo.models import Question
 
+import numpy as np
+
 #rest_framework 관련 코드
 # from rest_framework.response import Response
 # from rest_framework.views import APIView
@@ -26,6 +28,19 @@ def question_create(request):
         form = QuestionForm()
     context = {'form': form}
     return render(request, 'pybo/question_form.html', context)
+
+
+@login_required(login_url='common:login')
+def question_modelcreate(request):
+    question = Question()
+    question.subject = 'Tiny Lego Sample'
+    question.content = 'NeRF sample dataset인 tiny crain lego sample의 3D model rendering video이다.'
+    question.location = '서울시 서대문구 대현동'
+    question.author = request.user
+    question.create_date = timezone.now()
+    question.output = 'output/sample.mp4'
+    question.save()
+    return redirect('pybo:index')
 
 
 
@@ -66,6 +81,8 @@ def question_vote(request, question_id):
     else:
         question.voter.add(request.user)
     return redirect('pybo:detail', question_id=question.id)
+
+
 
 # # rest_framework 관련 코드 - Class Based View 중 APIView 사용
 # class QuestionListAPI(APIView):

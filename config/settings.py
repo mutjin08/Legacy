@@ -25,8 +25,8 @@ SECRET_KEY = 'df&20i1x6ral%hts#jo3suiihe=bw1vyn$nwdv1r0yq8wq!p4o'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = [".run.goorm.io"]
-
+ALLOWED_HOSTS = [".run.goorm.io", "legacy-gpaci.run-asia-northeast1.goorm.io"]
+CSRF_TRUSTED_ORIGINS = ["https://legacy-gpaci.run-asia-northeast1.goorm.site"]
 
 # Application definition
 
@@ -108,13 +108,13 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Seoul'
 
 USE_I18N = True
 
 USE_L10N = True
 
-USE_TZ = True
+USE_TZ = False
 
 
 # Static files (CSS, JavaScript, Images)
