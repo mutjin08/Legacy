@@ -8,6 +8,11 @@
     <div class="box-padding-big white-bg" style="border-radius:5px">
         <div class="container align-center">
 			<h1><strong>Room Join</strong></h1>	
+            <div>
+                {% for message in error_messages %}
+                    <p style="color:red">{{message}}!</p>
+                {% endfor %}
+            </div>
             <div class="row">
                 <div class="col-md-6 info-big">
                     <div style="width: 100%; padding-bottom:10%; padding-top:10%; border:5px solid #064635; border-radius:10px;">
@@ -15,12 +20,6 @@
                             <label for="group_id">Room Name</label><br>
                         </h4>
                         <input type="text" name="group_name" id="group_name" placeholder="그룹명을 입력하세요"><br>
-                        <ul id="group-list">
-                            <!-- 초기 그룹 리스트는 서버에서 렌더링됩니다. -->
-                            {% for group in groups %}
-                                <li>{{ group.name }}</li>
-                            {% endfor %}
-                        </ul>
                     </div>
                 </div>
                 <div class="col-md-6 info-big">
@@ -28,7 +27,7 @@
                         <h4>
                             <label for="username">Join Code</label><br>
                         </h4>
-                        <input type="text" name="input_password" id="input_password"><br>
+                        <input type="text" name="input_password" id="input_password" placeholder="비밀번호 입력하세요"><br>
                     </div>
                 </div>
                 <input type="submit" class="btn btn-success btn-block btn-lg" style="margin-top: 5%; margin-bottom:2%" value="방 참여하기">

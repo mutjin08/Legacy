@@ -1,7 +1,8 @@
 {% extends "base.html" %}
 {% load pybo_filter %}
 {% block content %}
-<div>
+<!-- <div>
+
     <ul>
         <li>
             <a href="{% url 'common:group_list' %}">그룹 리스트보기</a>
@@ -19,7 +20,8 @@
             <a href="{% url 'pybo:mylist' %}">내가 생성한 모델 보기</a>
         </li>
     </ul>
-</div>
+
+</div> -->
 
 <div class="box-padding-big white-bg">
 	<div class="container align-center">
@@ -64,27 +66,22 @@
     </table>
 </div>
             <!-- 내 방 리스트 -->
-            <div class="col-md-4 info-big">
+            <div class="col-md-4 info-big my-3 align-center">
                 <h3><strong>My rooms</strong></h3>
                 <ul>
-                    <li>| 그룹아이디 | 그룹이름 | 그룹리더 | 그룹비번 | 그룹소개 | 그룹생성시간 |</li>
+                    {% if groups%}
                     {% for group in groups %}
                         {% if group.leader == user %}
-                            내가 팀장인 방
+                            <img src="/static/images/master2.png" style="width:13%; height:13%">
+                        {% else %}
+                            <img src="/static/images/master2.png " style="width:13%; height:13%; opacity: 0;">
                         {% endif %}
-                        <li>{{ group.id }} : {{ group.name }} : {{ group.leader }} : {{ group.password }} : {{ group.introduction }} : {{ group.create_date }}</li>
-                        <ul>
-                            {% for member in group.members.all %}
-                                <li>{{ member.username }}</li>
-                            {% endfor %}
-                        </ul>
+                        <div class="btn btn-success btn-lg" style="margin-top:10px; height:60px; width:60%">{{ group.name }}</div>
                     {% endfor %}
+                    {% else %}
+                    속한 그룹이 없어용
+                    {% endif %}
                 </ul>
-    <a href="{% url 'common:mypage' %}">마이페이지로 돌아가기</a>    
-                
-                <div class="btn btn-success btn-lg" style="margin-top:10px; width:60%">내 개인 방</div>
-                <div class="btn btn-success btn-lg" style="margin-top:10px; width:60%"><img src="/static/images/group-fill.png">민맥 동아리 방</div>
-                <div class="btn btn-success btn-lg" style="margin-top:10px; width:60%"><img src="/static/images/group-fill.png">역사 교육과 방</div>
 
                 <a href="{% url 'common:group_create' %}" class="btn btn-warning btn-lg" style="border:none; margin:5%">새방 만들기</a>
                 <a href="{% url 'common:group_invite' %}" class="btn btn-warning btn-lg" style="border:none; margin:5%">방 들어가기</a>
@@ -92,13 +89,27 @@
                     
             </div>
             <!-- 구매한 모델 -->
-            <div class="col-md-4 info-big">
+            <div class="col-md-4 info-big my-3">
 				<h3><strong>Purchased models</strong></h3>	
-                <div class="btn btn-outline-warning btn-sm" style="margin:bottom 3px">model name</div><br>
-                <div class="btn btn-outline-warning btn-sm">model name</div><br>
-                <div class="btn btn-outline-warning btn-sm">model name</div><br>
-                <div class="btn btn-outline-warning btn-sm">model name</div><br>	
-				
+            <table class="table" >
+                <thead>
+                    <tr class="text-center">
+                        <th style="background-color:#064635; color:white">번호</th>
+                        <th style="width:50%; background-color:#064635; color:white">모델명</th>
+                        <th style="background-color:#064635; color:white">다운로드일시</th>
+                    </tr>
+                </thead>
+                <tbody>
+                   <tr class="text-center"> 
+                       <td>
+                       </td>
+                       <td>
+                           <div class="btn btn-outline-warning btn-sm">model name</div><br>
+                       </td>
+                       <td> 
+                       </td>
+                </tbody>
+                </table>
 			</div>
 		</div>
 	</div>
