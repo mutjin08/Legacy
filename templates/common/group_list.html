@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block content %}
+    <h1>Group List</h1>
+    <ul>
+        <li>| 그룹아이디 | 그룹이름 | 그룹리더 | 그룹비번 | 그룹소개 | 그룹생성시간 |</li>
+        {% for group in groups %}
+            <li>{{ group.id }} : {{ group.name }} : {{ group.leader }} : {{ group.password }} : {{ group.introduction }} : {{ group.create_date }}</li>
+            <ul>
+                {% for member in group.members.all %}
+                    <li>{{ member.username }}</li>
+                {% endfor %}
+            </ul>
+        {% endfor %}
+    </ul>
+    <a href="{% url 'common:mypage' %}">마이페이지로 돌아가기</a>
+{% endblock %}

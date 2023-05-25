@@ -14,6 +14,7 @@ class Question(models.Model):
     image = models.FileField(upload_to='image/', null=True, blank=True)
     npz = models.FileField(upload_to='npz/', null=True, blank=True)
     output = models.FileField(upload_to='output/', null=True, blank=True)
+    group = models.CharField(max_length=225, null=True, blank=True)
 
     def __str__(self):
         return self.subject

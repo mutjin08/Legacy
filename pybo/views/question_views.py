@@ -6,12 +6,6 @@ from django.utils import timezone
 from pybo.forms import QuestionForm
 from pybo.models import Question
 
-import numpy as np
-
-#rest_framework 관련 코드
-# from rest_framework.response import Response
-# from rest_framework.views import APIView
-# from .serializers import QuestionSerializer
 
 
 @login_required(login_url='common:login')
@@ -23,10 +17,11 @@ def question_create(request):
             question.author = request.user
             question.create_date = timezone.now()
             question.save()
-            return redirect('pybo:index')
+            return redirect('pybo:list')
     else:
         form = QuestionForm()
-    context = {'form': form}
+        groups = request.user.custom_groups.all()
+    context = {'form': form, 'groups': groups}
     return render(request, 'pybo/question_form.html', context)
 
 
@@ -40,7 +35,7 @@ def question_modelcreate(request):
     question.create_date = timezone.now()
     question.output = 'output/sample.mp4'
     question.save()
-    return redirect('pybo:index')
+    return redirect('pybo:list')
 
 
 
@@ -70,7 +65,7 @@ def question_delete(request, question_id):
         messages.error(request, '삭제권한이 없습니다')
         return redirect('pybo:detail', question_id=question.id)
     question.delete()
-    return redirect('pybo:index')
+    return redirect('pybo:list')
 
 
 @login_required(login_url='common:login')
@@ -81,13 +76,3 @@ def question_vote(request, question_id):
     else:
         question.voter.add(request.user)
     return redirect('pybo:detail', question_id=question.id)
-
-
-
-# # rest_framework 관련 코드 - Class Based View 중 APIView 사용
-# class QuestionListAPI(APIView):
-#     def get(self, request):
-#         queryset = Question.objects.all()
-#         print(queryset)
-#         serializer = QuestionSerializer(queryset, many=True)
-#         return Response(serializer.data)

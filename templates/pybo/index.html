@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+{% block content %}
+<!-- 첫 번째 섹션 -->
+<div class="box-padding-big white-bg">
+	<div class="container align-center">
+		<div class="row">
+			<div class="col-md-12 info-big">
+                <h2><strong>Who are we?</strong></h2>
+                <h3>Team04 고민박살</h3>
+				<div class="row">
+					<div class="col-md-4 info-big">
+						<Img src="/static/images/sujin-Icon.png">
+						<p><strong>박수진</strong><br>백 엔드, DB 구축</p>
+					</div>
+					<div class="col-md-4 info-big">
+						<Img src="/static/images/soyeon-Icon.png">
+						<p><strong>민소연</strong><br>AI모델, UI/UX</p>
+					</div>
+					<div class="col-md-4 info-big">
+						<Img src="/static/images/seunghee-Icon.png">
+						<p><strong>고승희</strong><br>프론트 엔드</p>
+					</div>
+				</div>			
+				<p>이화여자대학교 컴퓨터공학전공생이 모여, 캡스톤디자인프로젝트로 이 서비스를 개발하게 되었습니다!
+					<br>역사 유적지와 유물을 직접 방문하지 않아도 집에서 쉽게 3D로 관찰하고, 
+					<br>도슨트 음성을 통해 편하게 역사적 경험을 할 수 있는 
+					<br><strong>Legacy</strong>에 많은 관심 부탁드립니다!</p>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- 두 번째 섹션. 흰 배경 -->
+<div class="box-padding-big grey-bg">
+	<div class="container align-center">
+			<h2><strong>What did we make?</strong><br>Legacy</h2>		
+			<div class="row">
+				<div class="col-md-6 info-big">
+					<img src="/static/images/explore.png" style="float:left; width: 100px; height: 100px;"><h2>for Maker</h2><br>
+					<h4>Historical Contents</h4>
+					<p>your photoes <strong>→</strong><strong> 3D model</strong><br>
+						<strong>✚</strong><br>
+					Docent Description <strong>Mp3</strong><br>
+					<strong>✚</strong><br>
+					Detailed Description <strong>Text</strong></p>					
+				</div>
+				<div class="col-md-6 info-big">
+					<img src="/static/images/money.png" style="float:left"><h2>for Buyer</h2><br>
+					<h4>Purchase it for...</h4>
+					<p>1. <strong>educational</strong> purpose<br>
+					2. using as a basic source to create <strong>3D graphic</strong><br>
+					(in game or etc)<br>
+					3. <strong>making other contents</strong> which is related with history</p>					
+				</div>
+			</div>
+			
+		</div>
+	</div>
+</div>
+<!-- 네 번째 섹션. 흰색 배경. 모바일 이하 크기에서 감춤  -->
+<div class="box-padding-big white-bg">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-6">
+				<img src="/static/images/envelope-icon.jpg" style="float:left">  
+				<h2 class="icon-title">Email<br><strong>notifications</strong></h2>
+				<p>모델 생성시 고객님의 이메일로 알람을 보내 드립니다.<br>현재는 한 시간 정도 걸리지만 더 신속한 서비스를 제공하기 위해 연구중입니다!</p>
+			</div>
+			<div class="col-md-6">
+				<img src="/static/images/lock-icon.jpg" style="float:left">　　
+				<h2 class="icon-title">Project<br><strong>protection</strong></h2>
+				<p>쉽고 안전하게 3D 모델을 거래할 수 있는 공간을 제공합니다.<br>물론 개인이나 팀 내에서만 기록할 수도 있습니다.</p>
+			</div>
+		</div>
+	</div>
+</div>
+{% endblock %}

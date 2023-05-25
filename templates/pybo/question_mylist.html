@@ -1,0 +1,46 @@
+{% load pybo_filter %}
+{% block content %}
+<div class="container my-3">
+    <table class="table" >
+        <thead>
+        <tr class="text-center">
+            <th style="background-color:#064635; color:white">번호</th>
+            <th style="width:50%; background-color:#064635; color:white">제목</th>
+            <th style="background-color:#064635; color:white">글쓴이</th>
+            <th style="background-color:#064635; color:white">작성일시</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% if question_list %}
+        {% for question in question_list %}
+            {% if request.user == question.author %}
+            <tr class="text-center">
+                <td>
+                    <!-- 번호 = 전체건수 - 시작인덱스 - 현재인덱스 + 1 -->
+                    {{ question_list.paginator.count|sub:question_list.start_index|sub:forloop.counter0|add:1 }}
+                </td>
+                <td class="text-start">
+                    <a href="{% url 'pybo:detail' question.id %}">{{ question.subject }}</a>
+                    {% if question.answer_set.count > 0 %}
+                        <span class="text-danger small mx-2">{{ question.answer_set.count }}</span>
+                    {% endif %}
+                </td>
+                <td>{{ question.author.username }}</td>
+                <td>{{ question.create_date }}</td>
+            </tr>
+            {% endif %}
+        {% endfor %}
+
+        {% else %}
+        <tr>
+            <td colspan="3">생성한 모델이 없습니다.</td>
+        </tr>
+        {% endif %}
+        </tbody>
+    </table>
+</div>
+<form id="searchForm" method="get" action="{% url 'pybo:list' %}">
+    <input type="hidden" id="kw" name="kw" value="{{ kw|default_if_none:'' }}">
+    <input type="hidden" id="page" name="page" value="{{ page }}">
+</form>
+{% endblock %}

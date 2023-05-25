@@ -12,8 +12,11 @@
     <title>Hello, Legacy!</title>
 </head>
 <body>
-<!-- 네비게이션바 -->
-{% include "navbar.html" %}
+<div class="header">
+<!-- 네비게이션바와 배너 -->
+    {% include "navbar.html" %}
+    {% include "banner.html" %}
+</div>
 <!-- 기본 템플릿 안에 삽입될 내용 Start -->
 {% block content %}
 {% endblock %}

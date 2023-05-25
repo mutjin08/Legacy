@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+{% block content %}
+{% if error_message %}
+<p>{{ error_message }}</p>
+{% endif %}
+<form method="post">
+    {% csrf_token %}
+    <div class="box-padding-big white-bg" style="border-radius:5px">
+        <div class="container align-center">
+			<h1><strong>Room Join</strong></h1>	
+            <div class="row">
+                <div class="col-md-6 info-big">
+                    <div style="width: 100%; padding-bottom:10%; padding-top:10%; border:5px solid #064635; border-radius:10px;">
+                        <h4>
+                            <label for="group_id">Room Name</label><br>
+                        </h4>
+                        <input type="text" name="group_name" id="group_name" placeholder="그룹명을 입력하세요"><br>
+                        <ul id="group-list">
+                            <!-- 초기 그룹 리스트는 서버에서 렌더링됩니다. -->
+                            {% for group in groups %}
+                                <li>{{ group.name }}</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md-6 info-big">
+                    <div style="width: 100%; padding-bottom:10%; padding-top:10%; border:5px solid #064635; border-radius:10px;"> 
+                        <h4>
+                            <label for="username">Join Code</label><br>
+                        </h4>
+                        <input type="text" name="input_password" id="input_password"><br>
+                    </div>
+                </div>
+                <input type="submit" class="btn btn-success btn-block btn-lg" style="margin-top: 5%; margin-bottom:2%" value="방 참여하기">
+                <a href="{% url 'common:mypage' %}">마이페이지로 돌아가기</a>
+            </div>	
+			
+		</div>
+	</div>
+</form>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#search-input').on('keyup', function() {
+                var query = $(this).val();
+                $.ajax({
+                    url: '/filter_groups/',
+                    type: 'GET',
+                    data: {'query': query},
+                    success: function(data) {
+                        $('#group-list').html(data);
+                    }
+                });
+            });
+        });
+    </script>
+{% endblock %}

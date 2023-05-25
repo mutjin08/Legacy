@@ -1,0 +1,106 @@
+{% extends "base.html" %}
+{% load pybo_filter %}
+{% block content %}
+<div>
+    <ul>
+        <li>
+            <a href="{% url 'common:group_list' %}">그룹 리스트보기</a>
+        </li>
+        <li>
+            <a href="{% url 'common:group_create' %}">그룹 생성하기</a>
+        </li>
+        <li>
+            <a href="{% url 'common:group_invite' %}">그룹 참여하기</a>
+        </li>
+        <li>
+            <a href="{% url 'common:group_mylist' %}">내가 속한 그룹</a>
+        </li>
+        <li>
+            <a href="{% url 'pybo:mylist' %}">내가 생성한 모델 보기</a>
+        </li>
+    </ul>
+</div>
+
+<div class="box-padding-big white-bg">
+	<div class="container align-center">
+		<div class="row">
+            <!-- 내 모델 보기 -->
+<div class="col-md-4 info-big my-3">
+    <h3><strong>My own models</strong></h3>
+    <table class="table" >
+        <thead>
+        <tr class="text-center">
+            <th style="background-color:#064635; color:white">번호</th>
+            <th style="width:50%; background-color:#064635; color:white">제목</th>
+            <th style="background-color:#064635; color:white">작성일시</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% if question_list %}
+        {% for question in question_list %}
+            {% if request.user == question.author %}
+            <tr class="text-center">
+                <td>
+                    <!-- 번호 = 전체건수 - 시작인덱스 - 현재인덱스 + 1 -->
+                    {{ question_list.paginator.count|sub:question_list.start_index|sub:forloop.counter0|add:1 }}
+                </td>
+                <td class="text-start">
+                    <a href="{% url 'pybo:detail' question.id %}">{{ question.subject }}</a>
+                    {% if question.answer_set.count > 0 %}
+                        <span class="text-danger small mx-2">{{ question.answer_set.count }}</span>
+                    {% endif %}
+                </td>
+                <td>{{ question.create_date }}</td>
+            </tr>
+            {% endif %}
+        {% endfor %}
+
+        {% else %}
+        <tr>
+            <td colspan="3">생성한 모델이 없습니다.</td>
+        </tr>
+        {% endif %}
+        </tbody>
+    </table>
+</div>
+            <!-- 내 방 리스트 -->
+            <div class="col-md-4 info-big">
+                <h3><strong>My rooms</strong></h3>
+                <ul>
+                    <li>| 그룹아이디 | 그룹이름 | 그룹리더 | 그룹비번 | 그룹소개 | 그룹생성시간 |</li>
+                    {% for group in groups %}
+                        {% if group.leader == user %}
+                            내가 팀장인 방
+                        {% endif %}
+                        <li>{{ group.id }} : {{ group.name }} : {{ group.leader }} : {{ group.password }} : {{ group.introduction }} : {{ group.create_date }}</li>
+                        <ul>
+                            {% for member in group.members.all %}
+                                <li>{{ member.username }}</li>
+                            {% endfor %}
+                        </ul>
+                    {% endfor %}
+                </ul>
+    <a href="{% url 'common:mypage' %}">마이페이지로 돌아가기</a>    
+                
+                <div class="btn btn-success btn-lg" style="margin-top:10px; width:60%">내 개인 방</div>
+                <div class="btn btn-success btn-lg" style="margin-top:10px; width:60%"><img src="/static/images/group-fill.png">민맥 동아리 방</div>
+                <div class="btn btn-success btn-lg" style="margin-top:10px; width:60%"><img src="/static/images/group-fill.png">역사 교육과 방</div>
+
+                <a href="{% url 'common:group_create' %}" class="btn btn-warning btn-lg" style="border:none; margin:5%">새방 만들기</a>
+                <a href="{% url 'common:group_invite' %}" class="btn btn-warning btn-lg" style="border:none; margin:5%">방 들어가기</a>
+                    
+                    
+            </div>
+            <!-- 구매한 모델 -->
+            <div class="col-md-4 info-big">
+				<h3><strong>Purchased models</strong></h3>	
+                <div class="btn btn-outline-warning btn-sm" style="margin:bottom 3px">model name</div><br>
+                <div class="btn btn-outline-warning btn-sm">model name</div><br>
+                <div class="btn btn-outline-warning btn-sm">model name</div><br>
+                <div class="btn btn-outline-warning btn-sm">model name</div><br>	
+				
+			</div>
+		</div>
+	</div>
+</div>
+{% endblock %}

@@ -4,7 +4,7 @@
 <div class="container my-3">
     <div class="row my-3">
         <div class="col-6">
-            <a href="{% url 'pybo:question_create' %}" class="btn btn-primary">모델 생성하기</a>
+            <a href="{% url 'pybo:question_create' %}" class="btn btn-warning" style="background-color:#F0BB62; border-color:#F0BB62">답사 기록하기</a>
         </div>
         <div class="col-6">
             <div class="input-group">
@@ -15,13 +15,13 @@
             </div>
         </div>
     </div>
-    <table class="table">
+    <table class="table" >
         <thead>
-        <tr class="text-center table-dark">
-            <th>번호</th>
-            <th style="width:50%">제목</th>
-            <th>글쓴이</th>
-            <th>작성일시</th>
+        <tr class="text-center">
+            <th style="background-color:#064635; color:white">번호</th>
+            <th style="width:50%; background-color:#064635; color:white">제목</th>
+            <th style="background-color:#064635; color:white">글쓴이</th>
+            <th style="background-color:#064635; color:white">작성일시</th>
         </tr>
         </thead>
         <tbody>
@@ -50,7 +50,7 @@
         </tbody>
     </table>
     <div class="col-6">
-        <a href="{% url 'pybo:question_modelcreate' %}" class="btn btn-primary">데모용 버튼</a>
+        <a href="{% url 'pybo:question_modelcreate' %}" class="btn btn-warning">데모용 버튼</a>
     </div>
     <!-- 페이징처리 시작 -->
     <ul class="pagination justify-content-center">
@@ -72,7 +72,7 @@
         {% if page_number == question_list.number %}
         <li class="page-item active" aria-current="page">
             <a class="page-link" data-page="{{ page_number }}"
-               href="javascript:void(0)">{{ page_number }}</a>
+               href="javascript:void(0)"  style="background-color:#064635 ">{{ page_number }}</a>
         </li>
         {% else %}
         <li class="page-item">
@@ -97,7 +97,7 @@
     </ul>
     <!-- 페이징처리 끝 -->
 </div>
-<form id="searchForm" method="get" action="{% url 'index' %}">
+<form id="searchForm" method="get" action="{% url 'pybo:list' %}">
     <input type="hidden" id="kw" name="kw" value="{{ kw|default_if_none:'' }}">
     <input type="hidden" id="page" name="page" value="{{ page }}">
 </form>

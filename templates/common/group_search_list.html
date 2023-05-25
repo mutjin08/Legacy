@@ -1,0 +1,5 @@
+{% for group in groups %}
+    <li>{{ group.name }}</li>
+{% empty %}
+    <li>검색 결과가 없습니다.</li>
+{% endfor %}

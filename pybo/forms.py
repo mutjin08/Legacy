@@ -5,7 +5,7 @@ from pybo.models import Question, Answer
 class QuestionForm(forms.ModelForm):
     class Meta:
         model = Question
-        fields = ['subject', 'content', 'location', 'audio', 'image', 'output','npz']
+        fields = ['subject', 'content', 'location', 'audio', 'image', 'output', 'npz', 'group']
         labels = {
             'subject': '제목',
             'content': '내용',
@@ -14,6 +14,7 @@ class QuestionForm(forms.ModelForm):
             'image': '이미지 파일',
             'output': '3D 모델',
             'npz': 'npz 파일',
+            'group' : '그룹',
         }
 
 
