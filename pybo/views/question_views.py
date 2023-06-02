@@ -17,7 +17,7 @@ def question_create(request):
             question.author = request.user
             question.create_date = timezone.now()
             question.save()
-            return redirect('pybo:list')
+            return redirect('pybo:question_result')
     else:
         form = QuestionForm()
         groups = request.user.custom_groups.all()
@@ -76,3 +76,7 @@ def question_vote(request, question_id):
     else:
         question.voter.add(request.user)
     return redirect('pybo:detail', question_id=question.id)
+
+@login_required(login_url='common:login')
+def question_result(request):
+    return render(request, 'pybo/question_result.html')

@@ -1,5 +1,5 @@
 from django.contrib.auth import authenticate, login
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from common.forms import UserForm, GroupCreationForm
 from django.contrib.auth.models import User
 from .models import CustomGroup as Group
@@ -21,7 +21,7 @@ def group_create(request):
             group.save()
             group.members.add(request.user)
             group.save()
-            return redirect('common:group_list')  # 그룹 목록 페이지로 이동
+            return redirect('common:mypage')  # 마이페이지로 이동
     else:
         form = GroupCreationForm()
     return render(request, 'common/group_create.html', {'form': form})
@@ -34,10 +34,18 @@ def group_invite(request):
         input_password = request.POST['input_password']
         group_name = request.POST['group_name']
         
-        group = Group.objects.get(name=group_name)
-        if group.password==input_password:
+        try:
+            group = Group.objects.get(name=group_name)
+        except Group.DoesNotExist:
+            messages.error(request, 'Invalid group name')  # Display error message
+            return render(request, 'common/group_invite.html', {'error_messages': messages.get_messages(request)})
+        
+        if group.password == input_password:
             group.members.add(request.user)
-        return redirect('common:group_list')  # 그룹 목록 페이지로 이동
+            return redirect('common:group_list')  # Redirect to the group list page
+        else:
+            messages.error(request, 'Invalid password')  # Display error message
+            return render(request, 'common/group_invite.html', {'error_messages': messages.get_messages(request)})
     else:
         return render(request, 'common/group_invite.html')
 
@@ -66,8 +74,8 @@ def mypage(request):
         ).distinct()
     paginator = Paginator(question_list, 10)  # 페이지당 10개씩 보여주기
     page_obj = paginator.get_page(page)
-    context = {'question_list': page_obj, 'page': page, 'kw': kw}
-    groups = request.user.custom_groups.all()
+    groups = request.user.custom_groups.all() # 내가 속한 그룹
+    context = {'question_list': page_obj, 'page': page, 'kw': kw, 'groups': groups}
     return render(request, 'common/mypage.html', context)
 
 
