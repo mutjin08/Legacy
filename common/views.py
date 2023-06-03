@@ -33,7 +33,6 @@ def group_invite(request):
     if request.method == 'POST':
         input_password = request.POST['input_password']
         group_name = request.POST['group_name']
-        
         try:
             group = Group.objects.get(name=group_name)
         except Group.DoesNotExist:
