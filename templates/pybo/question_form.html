@@ -1,11 +1,46 @@
 {% extends 'base.html' %}
 {% block content %}
 <div class="container">
-    <h5 class="my-3 border-bottom pb-2">질문등록</h5>
+    <h5 class="my-3 border-bottom pb-2">답사 기록하기</h5>
     <form method="post" class="post-form my-3" enctype="multipart/form-data">
         {% csrf_token %}
-        {% include "form_errors.html" with form=form %}
-        {{ form.as_p }}
+        {% include "form_errors.html" %}
+        <div class="mb-3">
+            <label for="subject" class="form-label">제목</label>
+            <input type="text" class="form-control" name="subject" id="subject"
+                   value="{{ form.subject.value|default_if_none:'' }}">
+        </div>
+        <div class="mb-3">
+            <label for="location" class="form-label">위치</label>
+            <input type="text" class="form-control" name="location" id="location"
+                   value="{{ form.location.value|default_if_none:'' }}">
+        </div>
+        <div class="mb-3">
+            <label for="group" class="form-label">그룹</label>
+            <select type="text" class="form-control" name="group" id="group"
+                   value="{{ form.group.value|default_if_none:'' }}">
+                {% for g in groups %}
+                    <option value="{{ g.name }}">{{ g.name }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="mb-3">
+            <label for="content" class="form-label">내용</label>
+            <textarea class="form-control" name="content"
+                      id="content" rows="10">{{ form.content.value|default_if_none:'' }}</textarea>
+        </div>
+        <div class="mb-3">
+            <label for="audio" class="form-label">오디오 파일</label>
+            <input type="file" class="form-control" name="audio" id="audio">
+        </div>
+        <div class="mb-3">
+            <label for="image" class="form-label">이미지 파일</label>
+            <input type="file" class="form-control" name="image" id="image">
+        </div>
+        <div class="mb-3">
+            <label for="image" class="form-label">npz 파일</label>
+            <input type="file" class="form-control" name="npz" id="npz">
+        </div>
         <button type="submit" class="btn btn-primary">저장하기</button>
     </form>
 </div>

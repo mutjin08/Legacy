@@ -6,10 +6,6 @@ from django.utils import timezone
 from pybo.forms import QuestionForm
 from pybo.models import Question
 
-#rest_framework 관련 코드
-# from rest_framework.response import Response
-# from rest_framework.views import APIView
-# from .serializers import QuestionSerializer
 
 
 @login_required(login_url='common:login')
@@ -21,11 +17,25 @@ def question_create(request):
             question.author = request.user
             question.create_date = timezone.now()
             question.save()
-            return redirect('pybo:index')
+            return redirect('pybo:question_result')
     else:
         form = QuestionForm()
-    context = {'form': form}
+        groups = request.user.custom_groups.all()
+    context = {'form': form, 'groups': groups}
     return render(request, 'pybo/question_form.html', context)
+
+
+@login_required(login_url='common:login')
+def question_modelcreate(request):
+    question = Question()
+    question.subject = 'Tiny Lego Sample'
+    question.content = 'NeRF sample dataset인 tiny crain lego sample의 3D model rendering video이다.'
+    question.location = '서울시 서대문구 대현동'
+    question.author = request.user
+    question.create_date = timezone.now()
+    question.output = 'output/sample.mp4'
+    question.save()
+    return redirect('pybo:list')
 
 
 
@@ -55,7 +65,7 @@ def question_delete(request, question_id):
         messages.error(request, '삭제권한이 없습니다')
         return redirect('pybo:detail', question_id=question.id)
     question.delete()
-    return redirect('pybo:index')
+    return redirect('pybo:list')
 
 
 @login_required(login_url='common:login')
@@ -67,10 +77,6 @@ def question_vote(request, question_id):
         question.voter.add(request.user)
     return redirect('pybo:detail', question_id=question.id)
 
-# # rest_framework 관련 코드 - Class Based View 중 APIView 사용
-# class QuestionListAPI(APIView):
-#     def get(self, request):
-#         queryset = Question.objects.all()
-#         print(queryset)
-#         serializer = QuestionSerializer(queryset, many=True)
-#         return Response(serializer.data)
+@login_required(login_url='common:login')
+def question_result(request):
+    return render(request, 'pybo/question_result.html')

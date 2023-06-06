@@ -17,39 +17,63 @@
     <h2 class="border-bottom py-2">{{ question.subject }}</h2>
     <div class="card my-3">
         <div class="card-body">
+            <!--location start-->
+            {% if question.location %}
+            <div class="badge bg-light text-dark p-2 text-start">장소: {{ question.location }}</div>
+            {% endif %}
+            <!--location end-->
+            
+            <!--group start-->
+            {% if question.group %}
+            <div class="badge bg-light text-dark p-2 text-start">그룹: {{ question.group }}</div>
+            {% endif %}
+            <!--location end-->
             <div class="card-text">{{ question.content|mark }}</div>
+            
+
+<!--media start-->
+<div>
+    {% if question.output %} <!--비디오-->
+    <div>
+        <video width="100%" height="100%" max-width=-webkit-fill-available max-width=fill-available controlsList="nodownload"
+                   src="{{ question.output.url }}" controls autoplay muted playsinline loop></video>
+    </div>
+    <div>
+        <a href="{{ question.output.url }}" download class="btn btn-sm btn-outline-secondary">
+            Download Video
+        </a>
+    </div>
+
+    {% endif %}
+    {% if question.image %}  <!--이미지-->
+    <div>
+        <img src="{{ question.image.url }}" alt="{{ question.image.description }}" class="img-fluid mb-2">
+    </div>
+    {% endif %}
+    {% if question.audio %}  <!--음성 녹음-->
+    <div>
+        <audio controls>
+            <source src="{{ question.audio.url }}" type="{{ question.audio.content_type }}">
+            Your browser does not support the audio element.
+        </audio>
+    </div>
+    {% endif %}    
+</div>
+<!--media end-->
+
+            
+            
             <div class="d-flex justify-content-end">
                 {% if question.modify_date %}
                 <div class="badge bg-light text-dark p-2 text-start mx-3">
-                    <div class="mb-2">modified at</div>
+                    <div class="mb-2">최종수정날짜</div>
                     <div>{{ question.modify_date }}</div>
                 </div>
                 {% endif %}
                 <div class="badge bg-light text-dark p-2 text-start">
-                    <div class="mb-2">{{ question.author.username }}</div>
-                    <div>{{ question.create_date }}</div>
-                    <div>{{ question.location }}</div>
-                    {% if question.output %} <!--비디오-->
-                    <div>
-                        <video width="100%" height="100%" max-width=-webkit-fill-available max-width=fill-available
-                               src="{{ question.output.url }}" controls autoplay muted playsinline loop></video>
-                    </div>
-                    {% endif %}
-                    {% if question.image %}  <!--이미지-->
-                    <div>
-                        <img src="{{ question.image.url }}" alt="{{ question.image.description }}" class="img-fluid mb-2">
-                    </div>
-                    {% endif %}
-                    {% if question.audio %}  <!--음성 녹음-->
-                    <div>
-                        <audio controls>
-                            <source src="{{ question.audio.url }}" type="{{ question.audio.content_type }}">
-                            Your browser does not support the audio element.
-                        </audio>
-                    </div>
-                    {% endif %}
+                    <div class="mb-2">작성자: {{ question.author.username }}</div>
+                    <div>작성날짜: {{ question.create_date }}</div>
                 </div>
-
             </div>
             <div class="my-3">
                 <a href="javascript:void(0)" data-uri="{% url 'pybo:question_vote' question.id  %}"
@@ -66,7 +90,7 @@
         </div>
     </div>
     <!-- 답변 -->
-    <h5 class="border-bottom my-3 py-2">{{question.answer_set.count}}개의 답변이 있습니다.</h5>
+    <h5 class="border-bottom my-3 py-2">{{question.answer_set.count}}개의 댓글이 있습니다.</h5>
     {% for answer in question.answer_set.all %}
     <a id="answer_{{ answer.id }}"></a>
     <div class="card my-3">
@@ -75,13 +99,13 @@
             <div class="d-flex justify-content-end">
                 {% if answer.modify_date %}
                 <div class="badge bg-light text-dark p-2 text-start mx-3">
-                    <div class="mb-2">modified at</div>
+                    <div class="mb-2">최종수정날짜</div>
                     <div>{{ answer.modify_date }}</div>
                 </div>
                 {% endif %}
                 <div class="badge bg-light text-dark p-2 text-start">
-                    <div class="mb-2">{{ answer.author.username }}</div>
-                    <div>{{ answer.create_date }}</div>
+                    <div class="mb-2">작성자: {{ answer.author.username }}</div>
+                    <div>작성날짜: {{ answer.create_date }}</div>
                 </div>
             </div>
             <div class="my-3">
@@ -103,11 +127,11 @@
         {% csrf_token %}
         {% include "form_errors.html" %}
         <div class="mb-3">
-            <label for="content" class="form-label">답변내용</label>
+            <label for="content" class="form-label">댓글내용</label>
             <textarea {% if not user.is_authenticated %}disabled{% endif %}
                       name="content" id="content" class="form-control" rows="10"></textarea>
         </div>
-        <input type="submit" value="답변등록" class="btn btn-primary">
+        <input type="submit" value="댓글등록" class="btn btn-success" style="background-color:#F0BB62; border-color:#F0BB62">
     </form>
 </div>
 {% endblock %}

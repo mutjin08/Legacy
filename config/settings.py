@@ -25,8 +25,8 @@ SECRET_KEY = 'df&20i1x6ral%hts#jo3suiihe=bw1vyn$nwdv1r0yq8wq!p4o'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = [".run.goorm.io"]
-
+ALLOWED_HOSTS = [".run.goorm.io", "legacy-gpaci.run-asia-northeast1.goorm.io"]
+CSRF_TRUSTED_ORIGINS = ["https://legacy-gpaci.run-asia-northeast1.goorm.site"]
 
 # Application definition
 
@@ -39,7 +39,6 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'rest_framework',
 ]
 
 MIDDLEWARE = [
